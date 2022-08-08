@@ -1,9 +1,11 @@
 import { StyleSheet, View, Button, Text } from 'react-native';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useNavigation } from '@react-navigation/native';
+
 import 'react-native-get-random-values'
 import '@ethersproject/shims'
 import { ethers } from 'ethers'
-import { useNavigation } from '@react-navigation/native';
+
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import Account from './account'
 import HomeContext from '../src/HomeContext'
@@ -25,12 +27,12 @@ const Welcome = React.memo(() => {
 type HomeProps = {
   route: {
     params: {
-      addr: string,
-      mnem: string
+      address: string,
+      mnemonic: string
     }
   }
 }
-export default function Home({ route }: HomeProps) {
+const Home = ({ route }: HomeProps) => {
   const [page, setPage] = useState('')
   const [balance, setBalance] = useState(0)
   const [address, setAddress] = useState('')
@@ -40,14 +42,14 @@ export default function Home({ route }: HomeProps) {
   useEffect(() => {
     if (route.params === undefined) setPage('welcome')
     else {
-      setAddress(route.params.addr)
-      setMnemonic(route.params.mnem)
+      setAddress(route.params.address)
+      setMnemonic(route.params.mnemonic)
       setPage('account')
 
       const getBalance = async () => {
         try {
           const provider = new ethers.providers.JsonRpcProvider('https://rinkeby.infura.io/v3/ab0bba1edd7c44b28fdf159193f938f2');
-          const b = await provider.getBalance(route.params.addr) // fetch the balance
+          const b = await provider.getBalance(route.params.address) // fetch the balance
           const x: number = Number(ethers.utils.formatEther(b))
           if (x < 1) setBalance(Number(x.toFixed(9)))
           else setBalance(x)
@@ -61,7 +63,6 @@ export default function Home({ route }: HomeProps) {
   }, [route, sendTx])
 
   const foo = useMemo(() => ({ mnemonic, setSendTx }), [mnemonic]);
-
   return (
     <View style={styles.container}>
       { page === 'welcome' && <Welcome /> }
@@ -71,6 +72,7 @@ export default function Home({ route }: HomeProps) {
     </View>
   );
 }
+export default Home;
 
 const styles = StyleSheet.create({
   container: {

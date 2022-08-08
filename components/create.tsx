@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -6,13 +7,14 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import 'react-native-get-random-values'
 import '@ethersproject/shims'
 import { ethers } from 'ethers';
+
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { RootStackParams } from '../App'
 
-export function CreateScreen() {
+export const CreateScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>()
   const [declaratoin, setDeclaration] = useState(false)
-  const [phrase, setPhrase] = useState('')
+  const [mnemonic, setMnemonic] = useState('')
   const [address, setAddress] = useState('')
 
   useEffect(() => {
@@ -22,7 +24,7 @@ export function CreateScreen() {
       console.log('address:', wallet.address)
       setAddress(wallet.address)
       console.log('mnemonic:', wallet.mnemonic.phrase)
-      setPhrase(wallet.mnemonic.phrase)
+      setMnemonic(wallet.mnemonic.phrase)
       console.log('privateKey:', wallet.privateKey)
     }
     createWallet()
@@ -31,8 +33,8 @@ export function CreateScreen() {
   //---------------
 
   const handleNext = useCallback(() => {
-    navigation.navigate('Create2', { phrase: phrase, address: address })
-  }, [phrase, address, navigation])
+    navigation.navigate('Create2', { address, mnemonic })
+  }, [mnemonic, address, navigation])
   const handleDeclaration = useCallback(() => {
     setDeclaration(true)
   }, [setDeclaration])
@@ -46,8 +48,8 @@ export function CreateScreen() {
         <Text style={styles.fontSize}>註記詞將可協助您用更簡單的方式備份帳戶資訊。{'\n\n'}警告：絕對不要洩漏您的註記詞。{'\n'}任何人得知註記詞代表他可以竊取您所有的代幣。{'\n'}</Text>
         <View style={styles.phraseContainer}>
           {
-            declaratoin ? <Text style={styles.phraseText}>{phrase}</Text>
-              : <Text style={styles.nonPhraseText}>{phrase}</Text>
+            declaratoin ? <Text style={styles.phraseText}>{mnemonic}</Text>
+              : <Text style={styles.nonPhraseText}>{mnemonic}</Text>
           }
         </View>
         <View style={styles.btn}>
@@ -65,14 +67,13 @@ type Create2Props = {
   route: {
     params: {
       address: string,
-      mnem: string,
-      phrase: string,
+      mnemonic: string,
     }
   }
 }
-export function CreateScreen2({ route }: Create2Props) {
+export const CreateScreen2 = ({ route }: Create2Props) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>()
-  const phrase = route.params.phrase.split(' ')
+  const phrase = route.params.mnemonic.split(' ')
   const [check, setCheck] = useState<string[]>([])
   const [errMes, setErrMes] = useState(false)
 
@@ -86,7 +87,7 @@ export function CreateScreen2({ route }: Create2Props) {
     else {
       navigation.goBack()
       navigation.goBack()
-      navigation.navigate('Home', { addr: route.params.address, mnem: route.params.mnem })
+      navigation.navigate('Home', { address: route.params.address, mnemonic: route.params.mnemonic })
     }
   }, [check, phrase, navigation, route])
 

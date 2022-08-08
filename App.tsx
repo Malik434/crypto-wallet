@@ -75,29 +75,28 @@ const ImportStackScreen = React.memo(() => (
 
 export type RootStackParams = {
   Home: {
-    addr: string
-    mnem: string
+    address: string
+    mnemonic: string
   }
   Register: undefined
   Create: undefined
   Create2: {
-    phrase: string
     address: string
+    mnemonic: string
   }
   Import: undefined
 }
-export default function App() {
-  return (
-    <NavigationContainer>
-      <RootStack.Navigator>
-        <RootStack.Screen name="Home" component={HomeScreen} options={{ title: '我的錢包', headerBackTitle: '' }} />
-        <RootStack.Screen name="Register" component={RegisterStackScreen} options={{ headerShown: false, presentation: 'modal' }} />
-        <RootStack.Screen name="Create" component={CreateStackScreen} options={{ headerShown: false, presentation: 'modal' }} />
-        <RootStack.Screen name="Import" component={ImportStackScreen} options={{ headerShown: false, presentation: 'modal' }} />
-      </RootStack.Navigator>
-    </NavigationContainer>
-  );
-}
+const App = () => (
+  <NavigationContainer>
+    <RootStack.Navigator>
+      <RootStack.Screen name="Home" component={HomeScreen} options={{ title: '我的錢包', headerBackTitle: '' }} />
+      <RootStack.Screen name="Register" component={RegisterStackScreen} options={{ headerShown: false, presentation: 'modal' }} />
+      <RootStack.Screen name="Create" component={CreateStackScreen} options={{ headerShown: false, presentation: 'modal' }} />
+      <RootStack.Screen name="Import" component={ImportStackScreen} options={{ headerShown: false, presentation: 'modal' }} />
+    </RootStack.Navigator>
+  </NavigationContainer>
+)
+export default App;
 
 const styles = StyleSheet.create({
   container: {

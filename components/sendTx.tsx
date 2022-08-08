@@ -1,8 +1,10 @@
 import { StyleSheet, View, TouchableOpacity, Text, TextInput, Button } from 'react-native';
 import React, { useState, useCallback, useContext } from 'react';
+
 import 'react-native-get-random-values'
 import '@ethersproject/shims'
 import { ethers } from 'ethers';
+
 // eslint-disable-next-line import/extensions
 import HomeContext from '../src/HomeContext'
 
@@ -12,7 +14,7 @@ type SendTxProps = {
   // eslint-disable-next-line no-unused-vars
   setPage: (arg0: string) => void,
 }
-export default function SendTransaction({ address, balance, setPage }: SendTxProps) {
+const SendTransaction = ({ address, balance, setPage }: SendTxProps) => {
   const [addressTo, setAddressTo] = useState('')
   const [amount, setAmount] = useState('')
   const [verifyMes, setVerifyMes] = useState('null')
@@ -26,7 +28,7 @@ export default function SendTransaction({ address, balance, setPage }: SendTxPro
     if (e === '') setVerifyMes('null')
     else {
       try {
-        // ethers.utils.getAddress(e);
+        ethers.utils.getAddress(e);
         setVerifyMes('true')
       } catch (err) {
         setVerifyMes('false')
@@ -126,7 +128,6 @@ export default function SendTransaction({ address, balance, setPage }: SendTxPro
                   )
                   : (
                     <TouchableOpacity
-                      disabled
                       onPress={handleSendTx}
                       style={[styles.btn, styles.bgColor_Blue]}
                     >
@@ -157,6 +158,7 @@ export default function SendTransaction({ address, balance, setPage }: SendTxPro
     </View>
   )
 }
+export default SendTransaction;
 
 const styles = StyleSheet.create({
   flex: {

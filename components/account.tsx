@@ -2,6 +2,7 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { MaterialIcons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState, useCallback } from 'react';
 import * as Clipboard from 'expo-clipboard';
+
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import MyTransaction from './sendTx'
 
@@ -9,7 +10,7 @@ type AccountProps = {
   address: string,
   balance: number,
 }
-export default function Account({ address, balance }: AccountProps) {
+const Account = ({ address, balance }: AccountProps) => {
   const [page, setPage] = useState('account')
   const one = address.substring(0, 5)
   const two = address.substring(38, 42)
@@ -69,6 +70,7 @@ export default function Account({ address, balance }: AccountProps) {
     </View>
   )
 }
+export default Account;
 
 const styles = StyleSheet.create({
   container: {

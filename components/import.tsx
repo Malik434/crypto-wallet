@@ -6,10 +6,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import 'react-native-get-random-values'
 import '@ethersproject/shims'
 import { ethers } from 'ethers'
+
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { RootStackParams } from '../App'
 
-export default function Import() {
+const Import = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>()
   const [phrase, setPhrase] = useState('');
   const [errMes, setErrMes] = useState(false);
@@ -26,7 +27,7 @@ export default function Import() {
       const mnemonicWallet = ethers.Wallet.fromMnemonic(phrase);
 
       navigation.goBack()
-      navigation.navigate('Home', { addr: mnemonicWallet.address, mnem: mnemonic })
+      navigation.navigate('Home', { address: mnemonicWallet.address, mnemonic })
     } catch (err) {
       setErrMes(true)
     }
@@ -61,6 +62,7 @@ export default function Import() {
     </View>
   )
 }
+export default Import;
 
 const styles = StyleSheet.create({
   container: {
