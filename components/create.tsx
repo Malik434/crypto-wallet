@@ -8,7 +8,6 @@ import 'react-native-get-random-values'
 import '@ethersproject/shims'
 import { ethers } from 'ethers';
 
-// eslint-disable-next-line import/extensions
 import { RootStackParams } from '../App'
 
 export const CreateScreen = () => {
