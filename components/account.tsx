@@ -3,7 +3,7 @@ import { MaterialIcons, Feather, MaterialCommunityIcons } from '@expo/vector-ico
 import { useState, useCallback } from 'react';
 import * as Clipboard from 'expo-clipboard';
 
-// eslint-disable-next-line import/no-unresolved, import/extensions
+// eslint-disable-next-line import/extensions
 import MyTransaction from './sendTx'
 
 type AccountProps = {

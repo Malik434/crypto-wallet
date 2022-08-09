@@ -1,5 +1,4 @@
 /* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import React, { useCallback } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';

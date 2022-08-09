@@ -1,5 +1,4 @@
 /* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { StyleSheet, View, Button, Text } from 'react-native';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';

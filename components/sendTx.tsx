@@ -5,7 +5,7 @@ import 'react-native-get-random-values'
 import '@ethersproject/shims'
 import { ethers } from 'ethers';
 
-// eslint-disable-next-line import/extensions, import/no-unresolved
+// eslint-disable-next-line import/extensions
 import HomeContext from '../src/HomeContext'
 
 type SendTxProps = {
