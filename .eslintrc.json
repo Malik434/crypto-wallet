@@ -20,6 +20,11 @@
         "@typescript-eslint",
         "react-hooks"
     ],
+    "settings": {
+        "import/resolver": {
+            "typescript": {} // this loads <rootdir>/tsconfig.json to eslint
+        }
+    },
     "rules": {
         "semi": "off",
         "no-console": "off",
