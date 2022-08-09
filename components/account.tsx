@@ -39,7 +39,7 @@ const Account = ({ address, balance }: AccountProps) => {
             <View style={styles.etherIcon}>
               <MaterialCommunityIcons name="ethereum" size={44} color="black" />
             </View>
-            <Text style={styles.balanceText}>{balance == 0 ? 0 : balance} RinkebyETH</Text>
+            <Text style={styles.balanceText}>{balance === 0 ? 0 : balance} RinkebyETH</Text>
             {/* ---------------- */}
             <View style={styles.iconContainer}>
               <View style={styles.iconBox}>

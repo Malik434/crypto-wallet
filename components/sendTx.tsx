@@ -91,7 +91,7 @@ const SendTransaction = ({ address, balance, setPage }: SendTxProps) => {
             <View style={styles.flex}>
               <View style={[styles.box, styles.box1_margin]}>
                 <Text style={styles.subTitle}>資產：</Text>
-                <Text style={styles.fontSize2}>{balance == 0 ? 0 : balance}  RinkebyETH</Text>
+                <Text style={styles.fontSize2}>{balance === 0 ? 0 : balance}  RinkebyETH</Text>
               </View>
               <View style={[styles.box, styles.box2_margin]}>
                 <Text style={styles.subTitle}>數量：</Text>
