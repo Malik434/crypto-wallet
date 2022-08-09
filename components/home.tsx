@@ -1,3 +1,5 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import { StyleSheet, View, Button, Text } from 'react-native';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -6,7 +8,6 @@ import 'react-native-get-random-values'
 import '@ethersproject/shims'
 import { ethers } from 'ethers'
 
-// eslint-disable-next-line import/no-unresolved, import/extensions
 import Account from './account'
 import HomeContext from '../src/HomeContext'
 
@@ -62,11 +63,11 @@ const Home = ({ route }: HomeProps) => {
     }
   }, [route, sendTx])
 
-  const foo = useMemo(() => ({ mnemonic, setSendTx }), [mnemonic]);
+  const contextValue = useMemo(() => ({ mnemonic, setSendTx }), [mnemonic]);
   return (
     <View style={styles.container}>
       { page === 'welcome' && <Welcome /> }
-      <HomeContext.Provider value={foo}>
+      <HomeContext.Provider value={contextValue}>
         { page === 'account' && <Account address={address} balance={balance} /> }
       </HomeContext.Provider>
     </View>

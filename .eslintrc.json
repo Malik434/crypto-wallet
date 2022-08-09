@@ -21,7 +21,7 @@
         "react-hooks"
     ],
     "rules": {
-        "semi": ["off"],
+        "semi": "off",
         "no-console": "off",
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
