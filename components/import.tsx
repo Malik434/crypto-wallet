@@ -1,7 +1,7 @@
 import { View, StyleSheet, TextInput, Text, Button } from 'react-native';
 import { useState, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import 'react-native-get-random-values'
 import '@ethersproject/shims'
@@ -23,7 +23,7 @@ const Import = () => {
   const handleSubmit = useCallback(() => {
     try {
       const mnemonic: string = 'insect clutch budget nominee consider cradle chef slam soap spoil man rotate'
-      const mnemonicWallet = ethers.Wallet.fromMnemonic(phrase);
+      const mnemonicWallet = ethers.Wallet.fromMnemonic(mnemonic);
 
       navigation.goBack()
       navigation.navigate('Home', { address: mnemonicWallet.address, mnemonic })

@@ -2,8 +2,8 @@ import { StyleSheet, View, Button, Text } from 'react-native';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import 'react-native-get-random-values'
-import '@ethersproject/shims'
+import 'react-native-get-random-values';
+import '@ethersproject/shims';
 import { ethers } from 'ethers'
 
 import Account from './account'

@@ -10,8 +10,7 @@ import HomeContext from '../src/HomeContext'
 type SendTxProps = {
   address: string,
   balance: number,
-  // eslint-disable-next-line no-unused-vars
-  setPage: (arg0: string) => void,
+  setPage: React.Dispatch<React.SetStateAction<string>>,
 }
 const SendTransaction = ({ address, balance, setPage }: SendTxProps) => {
   const [addressTo, setAddressTo] = useState('')
@@ -27,7 +26,7 @@ const SendTransaction = ({ address, balance, setPage }: SendTxProps) => {
     if (e === '') setVerifyMes('null')
     else {
       try {
-        ethers.utils.getAddress(e);
+        // ethers.utils.getAddress(e);
         setVerifyMes('true')
       } catch (err) {
         setVerifyMes('false')
@@ -91,7 +90,7 @@ const SendTransaction = ({ address, balance, setPage }: SendTxProps) => {
             <View style={styles.flex}>
               <View style={[styles.box, styles.box1_margin]}>
                 <Text style={styles.subTitle}>資產：</Text>
-                <Text style={styles.fontSize2}>{balance == 0 ? 0 : balance}  RinkebyETH</Text>
+                <Text style={styles.fontSize2}>{balance === 0 ? 0 : balance}  RinkebyETH</Text>
               </View>
               <View style={[styles.box, styles.box2_margin]}>
                 <Text style={styles.subTitle}>數量：</Text>
