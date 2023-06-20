@@ -2,6 +2,9 @@
 A crypto wallet with React Native, Expo, Ethers.js and Infura API.
 
 <br><br>
-<img src="https://github.com/Chrissy1209/crypto-wallet/blob/main/plots/plot.png" width="250">
-<img width="386" alt="plot1" src="https://github.com/Chrissy1209/crypto-wallet/assets/79960363/d0ad905d-1d12-4b9d-baf5-4d3fe680021b">
-<img width="394" alt="plot2" src="https://github.com/Chrissy1209/crypto-wallet/assets/79960363/efe911c6-75fc-4e30-9a74-223e50bb5fcb">
+<img width="386" alt="plot1" src="https://github.com/Chrissy1209/crypto-wallet/assets/79960363/d0ad905d-1d12-4b9d-baf5-4d3fe680021b" width="200">
+<img width="394" alt="plot2" src="https://github.com/Chrissy1209/crypto-wallet/assets/79960363/efe911c6-75fc-4e30-9a74-223e50bb5fcb" width="200">
+<img width="397" alt="plot3" src="https://github.com/Chrissy1209/crypto-wallet/assets/79960363/030515a4-04d0-4067-8eb6-cc39968a42eb" width="200">
+<img width="403" alt="plot4" src="https://github.com/Chrissy1209/crypto-wallet/assets/79960363/b982094e-14b7-4cec-9a3a-31bdf80c4c85" width="200">
+<img width="388" alt="plot5" src="https://github.com/Chrissy1209/crypto-wallet/assets/79960363/91840358-6bbd-4b2b-99a4-996b11920d6b" width="200">
+<img width="399" alt="plot6" src="https://github.com/Chrissy1209/crypto-wallet/assets/79960363/4b27be90-dcda-42a9-b419-af27469abaec" width="200">
