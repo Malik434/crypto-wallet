@@ -15,24 +15,16 @@ type SendTxProps = {
 const SendTransaction = ({ address, balance, setPage }: SendTxProps) => {
   const [addressTo, setAddressTo] = useState('')
   const [amount, setAmount] = useState('')
-  const [verifyMes, setVerifyMes] = useState('null')
+  const [verifyMes, setVerifyMes] = useState('false')
   const [transaction, setTransaction] = useState(false)
   const context = useContext(HomeContext)
-
   //---------------
 
   const handleAddrChange = useCallback((e) => {
     setAddressTo(e)
-    if (e === '') setVerifyMes('null')
-    else {
-      try {
-        // ethers.utils.getAddress(e);
-        setVerifyMes('true')
-      } catch (err) {
-        setVerifyMes('false')
-      }
-    }
+    setVerifyMes(isValidAddress(e) ? 'true' : 'false');
   }, [])
+  
   const handleAmount = useCallback((e) => {
     if (e === '' || /^\d*\.?\d*$/.test(e)) {
       if (e[0] === '.' && e.length > 1) setAmount(`0${e}`) // .1 = 0.1
@@ -48,18 +40,21 @@ const SendTransaction = ({ address, balance, setPage }: SendTxProps) => {
     setVerifyMes('null')
     setAddressTo('')
   }, [])
+  const isValidAddress = useCallback((e) => {
+    return e.startsWith('0x') && e.length === 42;
+  }, [])
   const handleSendTx = useCallback(() => {
     const sendTx = async () => {
       setTransaction(true)
       if (amount === '' || amount === '.' || amount === '0.') setAmount('0')
 
       const mnemonicWallet = ethers.Wallet.fromMnemonic(context.mnemonic)
-      const provider = new ethers.providers.JsonRpcProvider('https://rinkeby.infura.io/v3/ab0bba1edd7c44b28fdf159193f938f2');
+      const provider = new ethers.providers.JsonRpcProvider('https://sepolia.infura.io/v3/c6b0ac80ab224facb9c0ef74a0c87d63');
       const wallet = new ethers.Wallet(mnemonicWallet.privateKey, provider)
 
       try {
         const tx = await wallet.sendTransaction({
-          to: '0x4F040609a8Fc36724CA9e17EC5D05eEB390087ad',
+          to: addressTo,
           value: ethers.utils.parseEther(amount),
         })
         await tx.wait()
@@ -72,7 +67,7 @@ const SendTransaction = ({ address, balance, setPage }: SendTxProps) => {
       }
     }
     sendTx()
-  }, [context, setPage, amount])
+  }, [context, setPage, amount, , addressTo])
 
   return (
     <View style={styles.flex}>
@@ -81,19 +76,19 @@ const SendTransaction = ({ address, balance, setPage }: SendTxProps) => {
         verifyMes === 'true' ? (
           <View style={styles.flex}>
             <View style={styles.addressBox}>
-              <Text style={styles.addressText}>{address}</Text>
-              {/* <Text style={styles.addressText}>{addressTo}</Text> */}
+              {/* <Text style={styles.addressText}>{address}</Text> */}
+              <Text style={styles.addressText}>{addressTo}</Text>
               <Text onPress={handleVerifyMes}>X</Text>
             </View>
-            <Text style={styles.textGreen}>偵測到錢包位址！</Text>
+            <Text style={styles.textGreen}>Wallet address detected!</Text>
             {/* ---------------- */}
             <View style={styles.flex}>
               <View style={[styles.box, styles.box1_margin]}>
-                <Text style={styles.subTitle}>資產：</Text>
-                <Text style={styles.fontSize2}>{balance === 0 ? 0 : balance}  RinkebyETH</Text>
+                <Text style={styles.subTitle}>Assets:</Text>
+                <Text style={styles.fontSize2}>{balance === 0 ? 0 : balance}  Sapolia ETH</Text>
               </View>
               <View style={[styles.box, styles.box2_margin]}>
-                <Text style={styles.subTitle}>數量：</Text>
+                <Text style={styles.subTitle}>Amount:</Text>
                 <TextInput
                   keyboardType="numeric"
                   onChangeText={handleAmount}
@@ -101,27 +96,27 @@ const SendTransaction = ({ address, balance, setPage }: SendTxProps) => {
                   placeholder="0"
                   style={styles.amountText}
                 />
-                <Text style={styles.fontSize2}>RinkebyETH</Text>
+                <Text style={styles.fontSize2}>Sapolia ETH</Text>
               </View>
               {
                 Number(amount) >= balance
-                  && <Text style={[styles.textRed, styles.textAlign]}>資金不足</Text>
+                  && <Text style={[styles.textRed, styles.textAlign]}>Insufficient funds</Text>
               }
             </View>
-            { transaction && <Text style={styles.processText}>交易處理中 . . .</Text> }
+            { transaction && <Text style={styles.processText}>Processing transaction . . .</Text> }
             {/* ---------------- */}
             <View style={styles.btnContainer}>
               <TouchableOpacity
                 onPress={handlePage}
                 style={styles.btn}
               >
-                <Text style={[styles.fontSize, styles.textBlue]}>取消</Text>
+                <Text style={[styles.fontSize, styles.textBlue]}>Cancel</Text>
               </TouchableOpacity>
               {
                 Number(amount) >= balance || transaction
                   ? (
                     <View style={[styles.btn, styles.disabledBtn]}>
-                      <Button disabled title="確認" />
+                      <Button disabled title="Confirm" />
                     </View>
                   )
                   : (
@@ -129,7 +124,7 @@ const SendTransaction = ({ address, balance, setPage }: SendTxProps) => {
                       onPress={handleSendTx}
                       style={[styles.btn, styles.bgColor_Blue]}
                     >
-                      <Text style={[styles.fontSize, styles.textWhite]}>確認</Text>
+                      <Text style={[styles.fontSize, styles.textWhite]}>Confirm</Text>
                     </TouchableOpacity>
                   )
               }
@@ -141,14 +136,14 @@ const SendTransaction = ({ address, balance, setPage }: SendTxProps) => {
               <TextInput
                 onChangeText={handleAddrChange}
                 value={addressTo}
-                placeholder="搜尋公開地址(0x)"
+                placeholder="Search public address (0x)"
                 style={styles.addressInputBox}
               />
               <View style={styles.flexDirection}>
                 <View style={styles.flex}>
-                  { verifyMes === 'false' && <Text style={styles.textRed}>接收位址錯誤</Text> }
+                  { verifyMes === 'false' && <Text style={styles.textRed}>Invalid recipient address</Text> }
                 </View>
-                <Text onPress={handlePage} style={styles.cancelBtn}>取消</Text>
+                <Text onPress={handlePage} style={styles.cancelBtn}>Cancel</Text>
               </View>
             </View>
           )
